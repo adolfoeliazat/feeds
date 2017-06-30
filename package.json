@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^7.0.31",
+    "@types/node": "^7.0.33",
     "@types/xml2js": "0.0.32",
     "bitcore-lib": "github:eordano/bitcore-lib#f9c9876",
     "isomorphic-fetch": "^2.2.1",

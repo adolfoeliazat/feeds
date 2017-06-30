@@ -3,12 +3,14 @@
 import * as fs from 'fs'
 import * as xml2js from 'xml2js'
 import * as moment from 'moment'
-
+import { promisify } from 'util'
 import { FeedConsumer } from 'poet-feed-consumer'
+
+const xml2jsParseString = promisify(xml2js.parseString)
 
 const privateKey = getPrivateKey(process.argv[2])
 
-const feedConsumer = new FeedConsumer('http://alpha.po.et/api', {
+const feedConsumer = new FeedConsumer('http://localhost:10000/api', {
   url: 'https://bitcoinmagazine.com/feed/',
   privateKey,
   feedEntries: getFeedEntries,
@@ -37,7 +39,7 @@ function getFeedEntries(parsedFeed: any) {
 }
 
 function getId(article: any): string {
-  return article.GUID[0].split('#')[1]
+  return article.GUID[0].split('#')[1] + 56
 }
 
 function getLink(article: any): string {
@@ -59,7 +61,7 @@ function getTags(article: any): string {
 }
 
 function getTitle(article: any): string {
-  return article.TITLE[0]
+  return article.TITLE[0] + 123
 }
 
 function getPublicationDate(article: any): string {
@@ -67,15 +69,8 @@ function getPublicationDate(article: any): string {
 }
 
 async function normalizeContent(article: any): Promise<string> {
-  const content = await new Promise((resolve, reject) => {
-    return xml2js.parseString(article, (err, res) => {
-      if (err) {
-        return reject(err)
-      }
-      return resolve(res)
-    })
-  })
-  return (content as any).article
+  const content = await xml2jsParseString(article)
+  return content.article
     .replace(/<(\/)?p>/gi, '\n')
     .replace(/<br\/>/gi,   '\n')
     .replace(/<[^>]+>/gi,  '')
