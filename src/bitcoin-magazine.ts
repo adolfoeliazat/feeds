@@ -10,7 +10,7 @@ const xml2jsParseString = promisify(xml2js.parseString)
 
 const privateKey = getPrivateKey(process.argv[2])
 
-const feedConsumer = new FeedConsumer('http://alpha.po.et/api', {
+const feedConsumer = new FeedConsumer('https://alpha.po.et/api', {
   url: 'https://bitcoinmagazine.com/feed/',
   privateKey,
   feedEntries: getFeedEntries,
