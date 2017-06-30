@@ -1,0 +1,27 @@
+{
+  "name": "poet-feeds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/bitcoin-magazine.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
+  },
+  "bin": {
+    "poet-feeds": "dist/bitcoin-magazine.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^7.0.31",
+    "@types/xml2js": "0.0.32",
+    "bitcore-lib": "github:eordano/bitcore-lib#f9c9876",
+    "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.17.1",
+    "poet-feed-consumer": "^1.0.3",
+    "poet-js": "^0.2.0",
+    "xml2js": "^0.4.17"
+  }
+}
